@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "462530260089",
+    "firebase_url": "https://syncpad-9f359.firebaseio.com",
+    "project_id": "syncpad-9f359",
+    "storage_bucket": "syncpad-9f359.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:462530260089:android:0a10a1524045673a",
+        "android_client_info": {
+          "package_name": "br.com.daniel.syncpad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "462530260089-v3uumar9mckrnk07fhasjbpnrnvshb8v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.daniel.syncpad",
+            "certificate_hash": "2e9786aee9d3af6bd404eac9757e3da0884507fb"
+          }
+        },
+        {
+          "client_id": "462530260089-7ub7751cfoahsu20bbjmtgtj02maatcr.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "462530260089-7ub7751cfoahsu20bbjmtgtj02maatcr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHe9xL_kvgtb_sO2Rg1NWsAMfZowAaiFE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "462530260089-7ub7751cfoahsu20bbjmtgtj02maatcr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

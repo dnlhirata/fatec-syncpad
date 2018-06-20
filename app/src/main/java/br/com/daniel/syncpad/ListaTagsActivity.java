@@ -26,7 +26,7 @@ import br.com.daniel.syncpad.model.Tag;
 public class ListaTagsActivity extends AppCompatActivity {
     private DatabaseReference firebaseReference;
     private ArrayList<Tag> tags;
-    ArrayAdapter<Tag> tagsAdapter;
+    private ArrayAdapter<Tag> tagsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class ListaTagsActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Inicia TagActivity e "joga" a lista de tags
                 Intent telaTag = new Intent(ListaTagsActivity.this, TagActivity.class);
                 telaTag.putExtra("tags", tags);
                 startActivity(telaTag);
@@ -60,6 +61,7 @@ public class ListaTagsActivity extends AppCompatActivity {
         firebaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                //Recupera as tags salvas no Firebase
                 tags.clear();
                 for(DataSnapshot json: dataSnapshot.getChildren()){
                     Tag tag = json.getValue(Tag.class);

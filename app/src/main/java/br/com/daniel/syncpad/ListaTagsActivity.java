@@ -20,13 +20,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import br.com.daniel.syncpad.adapter.TagsAdapter;
 import br.com.daniel.syncpad.firebase.FirebaseHelper;
 import br.com.daniel.syncpad.model.Tag;
 
 public class ListaTagsActivity extends AppCompatActivity {
     private DatabaseReference firebaseReference;
     private ArrayList<Tag> tags;
-    private ArrayAdapter<Tag> tagsAdapter;
+    private TagsAdapter tagsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +35,13 @@ public class ListaTagsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_tags);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         FirebaseHelper fbHelper = new FirebaseHelper();
         firebaseReference = fbHelper.configuraFirebase();
 
         ListView listaTags = findViewById(R.id.tag_list);
         tags = new ArrayList<Tag>();
-        tagsAdapter = new ArrayAdapter<Tag>(this, android.R.layout.simple_list_item_1, tags);
+        tagsAdapter = new TagsAdapter(this, tags);
         listaTags.setAdapter(tagsAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -55,8 +57,8 @@ public class ListaTagsActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
 
         firebaseReference.addValueEventListener(new ValueEventListener() {
             @Override

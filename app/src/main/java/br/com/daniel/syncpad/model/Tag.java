@@ -3,12 +3,14 @@ package br.com.daniel.syncpad.model;
 import com.google.firebase.database.Exclude;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Tag implements Serializable {
     @Exclude
     private String id;
     private String name;
     private String content;
+    private String date;
 
     public Tag(String tagName) {
         this.name = tagName;
@@ -26,6 +28,14 @@ public class Tag implements Serializable {
     }
 
     public Tag() {
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getId() {

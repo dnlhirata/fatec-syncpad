@@ -29,7 +29,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
+import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -79,7 +87,9 @@ public class TagActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save_tag:
-                salvaTag(tagId);
+                String utcDateTime = getUTCDateTime();
+                salvaTag(tagId, utcDateTime);
+                finish();
                 break;
 
         }
@@ -104,11 +114,18 @@ public class TagActivity extends AppCompatActivity {
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    salvaTag(tagId);
+                    String utcDateTime = getUTCDateTime();
+                    salvaTag(tagId, utcDateTime);
                 }
             }, 500);
         }
     };
+
+    private String getUTCDateTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm Z");
+        ZonedDateTime dateTime = ZonedDateTime.now();
+        return dateTime.withZoneSameInstant(ZoneOffset.UTC).format(formatter);
+    }
 
     //Recupera o conteúdo da tag após mudar o foco da EditView (tag_name)
     public View.OnFocusChangeListener tagNameListener = new View.OnFocusChangeListener() {
@@ -147,10 +164,10 @@ public class TagActivity extends AppCompatActivity {
     };
 
     //Salva a tag no Firebase
-    private void salvaTag(String key) {
+    private void salvaTag(String key, String dateTime){
         String name = tagName.getEditableText().toString();
         String content = tagContent.getEditableText().toString();
-        Tag tag = new Tag(key, name, content);
+        Tag tag = new Tag(key, name, content, dateTime);
         firebaseReference.child(key).setValue(tag);
     }
 

@@ -18,6 +18,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 
 import br.com.daniel.syncpad.adapter.TagsAdapter;
@@ -25,9 +29,10 @@ import br.com.daniel.syncpad.firebase.FirebaseHelper;
 import br.com.daniel.syncpad.model.Tag;
 
 public class ListaTagsActivity extends AppCompatActivity {
-    private DatabaseReference firebaseReference;
+
     private ArrayList<Tag> tags;
     private TagsAdapter tagsAdapter;
+    private DatabaseReference firebaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +62,7 @@ public class ListaTagsActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
 
         firebaseReference.addValueEventListener(new ValueEventListener() {
@@ -65,7 +70,7 @@ public class ListaTagsActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //Recupera as tags salvas no Firebase
                 tags.clear();
-                for(DataSnapshot json: dataSnapshot.getChildren()){
+                for (DataSnapshot json : dataSnapshot.getChildren()) {
                     Tag tag = json.getValue(Tag.class);
                     tag.setId(json.getKey());
                     tags.add(tag);

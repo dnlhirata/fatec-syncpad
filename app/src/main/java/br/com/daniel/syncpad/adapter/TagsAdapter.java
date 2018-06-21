@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import br.com.daniel.syncpad.R;
@@ -41,13 +44,29 @@ public class TagsAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         Tag tag = tags.get(position);
 
-        View view = LayoutInflater.from(context).inflate(R.layout.list_item, null);
+        LayoutInflater inflater = LayoutInflater.from(context);
 
+        View view = convertView;
+        if (view == null) {
+            view = inflater.inflate(R.layout.list_item, parent, false);
+        }
         TextView tagName = view.findViewById(R.id.item_tag_name);
         tagName.setText(tag.getName());
+
+        String formatedDateTime = getFormatedDateTime(tag);
         TextView tagDate = view.findViewById(R.id.item_tag_last_update);
-        tagDate.setText(tag.getDate());
+        tagDate.setText("Última atualização: " + formatedDateTime);
 
         return view;
+    }
+
+    private String getFormatedDateTime(Tag tag) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm Z");
+        ZonedDateTime dateTime = ZonedDateTime.parse(tag.getDate(), formatter);
+
+        DateTimeFormatter localFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        ZonedDateTime dateZoneTime = dateTime.withZoneSameInstant(ZoneId.systemDefault());
+
+        return dateZoneTime.format(localFormatter);
     }
 }

@@ -19,9 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TagActivity"
-            android:label="Tag">
-        </activity>
+        <activity
+            android:name=".TagActivity"
+            android:label="Tag"></activity>
     </application>
 
 </manifest>

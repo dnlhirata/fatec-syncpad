@@ -3,39 +3,31 @@ package br.com.daniel.syncpad.model;
 import com.google.firebase.database.Exclude;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.ZonedDateTime;
 
 public class Tag implements Serializable {
     @Exclude
     private String id;
     private String name;
     private String content;
-    private String date;
+    private String dateTime;
 
-    public Tag(String tagName) {
-        this.name = tagName;
-    }
-
-    public Tag(String name, String content) {
-        this.name = name;
-        this.content = content;
-    }
-
-    public Tag(String id, String name, String content) {
+    public Tag(String id, String name, String content, String dateTime) {
         this.id = id;
         this.name = name;
         this.content = content;
+        this.dateTime = dateTime;
     }
 
     public Tag() {
     }
 
     public String getDate() {
-        return date;
+        return dateTime;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDate(String dateTime) {
+        this.dateTime = dateTime;
     }
 
     public String getId() {
@@ -64,6 +56,6 @@ public class Tag implements Serializable {
 
     @Override
     public String toString() {
-        return this.name;
+        return this.name + " " + this.content + " " + this.dateTime;
     }
 }

@@ -9,11 +9,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import br.com.daniel.syncpad.adapter.TagsAdapter;
@@ -86,13 +92,22 @@ public class ListaTagsFragment extends Fragment {
                     tag.setId(json.getKey());
                     tags.add(tag);
                 }
-
+                sortByDate(tags);
                 tagsAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+    }
+
+    private void sortByDate(ArrayList<Tag> tags) {
+        Collections.sort(tags, new Comparator<Tag>() {
+            @Override
+            public int compare(Tag tag1, Tag tag2) {
+                return tag1.getDate().compareTo(tag2.getDate());
             }
         });
     }

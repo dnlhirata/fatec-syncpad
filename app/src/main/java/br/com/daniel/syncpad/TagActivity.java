@@ -1,45 +1,24 @@
 package br.com.daniel.syncpad;
 
 import android.content.Intent;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.CompletionInfo;
-import android.view.inputmethod.CorrectionInfo;
-import android.view.inputmethod.ExtractedText;
-import android.view.inputmethod.ExtractedTextRequest;
-import android.view.inputmethod.InputConnection;
-import android.view.inputmethod.InputContentInfo;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.ArrayList;
-import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -80,7 +59,7 @@ public class TagActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_lista_tags, menu);
+        getMenuInflater().inflate(R.menu.menu_tag, menu);
         return true;
     }
 
@@ -168,9 +147,12 @@ public class TagActivity extends AppCompatActivity {
     //Salva a tag no Firebase
     private void salvaTag(String key, String dateTime){
         String name = tagName.getEditableText().toString();
-        String content = tagContent.getEditableText().toString();
-        Tag tag = new Tag(key, name, content, dateTime);
-        firebaseReference.child(key).setValue(tag);
+        if (!name.isEmpty()){
+            String content = tagContent.getEditableText().toString();
+            Tag tag = new Tag(key, name, content, dateTime);
+            System.out.println(key);
+            firebaseReference.child(key).setValue(tag);
+        }
     }
 
 }

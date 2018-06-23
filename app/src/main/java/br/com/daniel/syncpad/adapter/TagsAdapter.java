@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -15,7 +16,7 @@ import java.util.List;
 import br.com.daniel.syncpad.R;
 import br.com.daniel.syncpad.model.Tag;
 
-public class TagsAdapter extends BaseAdapter {
+public class TagsAdapter extends BaseAdapter{
 
     private final List<Tag> tags;
     private final Context context;
@@ -55,8 +56,7 @@ public class TagsAdapter extends BaseAdapter {
 
         String formatedDateTime = getFormatedDateTime(tag);
         TextView tagDate = view.findViewById(R.id.item_tag_last_update);
-        tagDate.setText("Última atualização: " + formatedDateTime);
-
+        tagDate.setText(context.getString(R.string.last_update) + ": " + formatedDateTime);
         return view;
     }
 

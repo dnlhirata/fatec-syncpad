@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Syncpad</string>
+    <string name="save">Salvar</string>
+    <string name="tag_name">Nome da tag</string>
+    <string name="tag_content">Conteúdo da tag</string>
+    <string name="tag_name_hint">Digite o nome da tag</string>
+    <string name="tag_content_hint">Digite o conteúdo da tag</string>
+    <string name="last_update">Última atualização em</string>
+</resources>

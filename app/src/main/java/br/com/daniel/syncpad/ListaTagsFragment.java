@@ -6,17 +6,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -24,21 +17,20 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
-import br.com.daniel.syncpad.adapter.TagsAdapter;
+import br.com.daniel.syncpad.adapter.listener.OnItemClickListener;
 import br.com.daniel.syncpad.firebase.FirebaseHelper;
 import br.com.daniel.syncpad.model.Tag;
+import br.com.daniel.syncpad.adapter.TagsAdapterRecycler;
 
 public class ListaTagsFragment extends Fragment {
 
     private ArrayList<Tag> tags;
-    private TagsAdapter tagsAdapter;
+    //private TagsAdapter tagsAdapter;
+    private TagsAdapterRecycler tagsAdapter;
     private DatabaseReference firebaseReference;
 
     @Nullable
@@ -48,13 +40,10 @@ public class ListaTagsFragment extends Fragment {
 
         FirebaseHelper fbHelper = new FirebaseHelper();
         firebaseReference = fbHelper.configuraFirebase();
-
-        ListView listaTags = view.findViewById(R.id.tag_list);
         tags = new ArrayList<Tag>();
-        tagsAdapter = new TagsAdapter(getContext(), tags);
-        listaTags.setAdapter(tagsAdapter);
+        setUpRecyclerView(view);
 
-        listaTags.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*listaTags.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Tag tag = (Tag) parent.getItemAtPosition(position);
@@ -62,8 +51,12 @@ public class ListaTagsFragment extends Fragment {
                 ListaTagsActivity listaTagsActivity = (ListaTagsActivity) getActivity();
                 listaTagsActivity.selectTag(tag);
             }
-        });
+        });*/
+        newTagButton(view);
+        return view;
+    }
 
+    private void newTagButton(View view) {
         FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,8 +67,24 @@ public class ListaTagsFragment extends Fragment {
                 startActivity(telaTag);
             }
         });
+    }
 
-        return view;
+    private void setUpRecyclerView(View view) {
+        RecyclerView listaTags = view.findViewById(R.id.tag_list);
+        setUpAdapter(listaTags);
+    }
+
+
+    private void setUpAdapter(RecyclerView listaTags) {
+        tagsAdapter = new TagsAdapterRecycler(getContext(), tags);
+        listaTags.setAdapter(tagsAdapter);
+        tagsAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(Tag tag) {
+                ListaTagsActivity listaTagsActivity = (ListaTagsActivity) getActivity();
+                listaTagsActivity.selectTag(tag);
+            }
+        });
     }
 
     @Override

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Syncpad</string>
+    <string name="save">Salvar</string>
+    <string name="tag_name">Nombre de la etiqueta</string>
+    <string name="tag_content">Contenido de la etiqueta</string>
+    <string name="tag_content_hint">Escriba el contenido de la etiqueta</string>
+    <string name="tag_name_hint">Escriba el nombre de la etiqueta</string>
+</resources>

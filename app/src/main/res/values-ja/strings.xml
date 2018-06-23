@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Syncpad</string>
+    <string name="save">セーブ</string>
+    <string name="tag_name">タグ名</string>
+    <string name="tag_content">タグコンテンツ</string>
+    <string name="tag_content_hint">タイプタグの内容</string>
+    <string name="tag_name_hint">タイプタグ名</string>
+    <string name="last_update">最終更新</string>
+</resources>

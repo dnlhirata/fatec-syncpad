@@ -29,7 +29,6 @@ import br.com.daniel.syncpad.adapter.TagsAdapterRecycler;
 public class ListaTagsFragment extends Fragment {
 
     private ArrayList<Tag> tags;
-    //private TagsAdapter tagsAdapter;
     private TagsAdapterRecycler tagsAdapter;
     private DatabaseReference firebaseReference;
 
@@ -43,15 +42,6 @@ public class ListaTagsFragment extends Fragment {
         tags = new ArrayList<Tag>();
         setUpRecyclerView(view);
 
-        /*listaTags.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Tag tag = (Tag) parent.getItemAtPosition(position);
-
-                ListaTagsActivity listaTagsActivity = (ListaTagsActivity) getActivity();
-                listaTagsActivity.selectTag(tag);
-            }
-        });*/
         newTagButton(view);
         return view;
     }
@@ -81,7 +71,7 @@ public class ListaTagsFragment extends Fragment {
         tagsAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(Tag tag) {
-                ListaTagsActivity listaTagsActivity = (ListaTagsActivity) getActivity();
+ListaTagsActivity listaTagsActivity = (ListaTagsActivity) getActivity();
                 listaTagsActivity.selectTag(tag);
             }
         });
@@ -102,6 +92,7 @@ public class ListaTagsFragment extends Fragment {
                     tags.add(tag);
                 }
                 sortByDate(tags);
+                Collections.reverse(tags);
                 tagsAdapter.notifyDataSetChanged();
             }
 
